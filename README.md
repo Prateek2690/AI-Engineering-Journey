@@ -30,15 +30,17 @@ notes/                   learning log entries
 Nothing needs to be installed locally.
 
 - **GPU notebooks (Google Colab or Kaggle):** in Colab choose File › Open notebook › GitHub, paste this repo's URL, then Runtime › Change runtime type › GPU. Start with `notebooks/00_environment_check.ipynb`.
-- **App code and scripts (GitHub Codespaces):** Code › Codespaces › Create codespace on main. The dev container installs everything in `requirements.txt` (CPU PyTorch included). Stop the codespace when you finish to save free hours.
+- **Scripts (also in Colab):** in a notebook cell, clone the repo and run scripts with `%run` so the hidden key prompt works (see the quick check below). For browser demos, Streamlit or Gradio apps go on Hugging Face Spaces. GitHub Codespaces also works if you prefer an editor (the dev container installs `requirements.txt`), but it is optional.
 - **Models:** everything goes through [OpenRouter](https://openrouter.ai/models) with one key. `scripts/llm_client.py` has an `ask()` helper; pick any model by its OpenRouter id.
-- **API keys:** the notebook and scripts ask for your OpenRouter key when they run (hidden input) and keep it in memory for that session only. Nothing is stored in GitHub, Colab or Codespaces. Use a dedicated key with a low monthly spend limit, and never commit keys (`.env` is git-ignored).
+- **API keys:** the notebook and scripts ask for your OpenRouter key when they run (hidden input) and keep it in memory for that session only. Nothing is stored in GitHub or Colab. Use a dedicated key with a low monthly spend limit, and never commit keys (`.env` is git-ignored).
 
-Quick check in a codespace:
+Quick check in a Colab cell:
 
-```bash
-python scripts/hello_llm.py "Explain the KV cache in two sentences."
-python scripts/hello_llm.py --model <openrouter-model-id> "Explain the KV cache in two sentences."
+```python
+!git clone https://github.com/Prateek2690/AI-Engineering-Journey.git
+%cd AI-Engineering-Journey
+%run scripts/hello_llm.py "Explain the KV cache in two sentences."
+%run scripts/hello_llm.py --model <openrouter-model-id> "Explain the KV cache in two sentences."
 ```
 
 ## Projects

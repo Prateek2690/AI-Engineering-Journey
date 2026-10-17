@@ -1,4 +1,4 @@
-# CPU build of PyTorch for Codespaces; Colab and Kaggle already ship a GPU build.
+# CPU build of PyTorch for local or Codespaces use; Colab and Kaggle already ship a GPU build.
 --extra-index-url https://download.pytorch.org/whl/cpu
 torch
 numpy
