@@ -5,6 +5,5 @@ numpy
 pandas
 matplotlib
 jupyter
-anthropic
 openai
 python-dotenv

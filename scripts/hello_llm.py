@@ -1,21 +1,21 @@
-"""Send one prompt to an LLM and print the reply.
+"""Send one prompt to an LLM through OpenRouter and print the reply.
 
 Usage:
-  python scripts/hello_llm.py "your prompt"                      # OpenRouter, default model
-  python scripts/hello_llm.py --provider together "your prompt"
-  python scripts/hello_llm.py --provider anthropic --model claude-opus-5-5 "your prompt"
+  python scripts/hello_llm.py "your prompt"
+  python scripts/hello_llm.py --model <openrouter-model-id> "your prompt"
 
-The key is read from the provider's environment variable if set, otherwise asked
-for with hidden input and kept in memory for this run only.
+Model ids are listed at https://openrouter.ai/models (for example an "anthropic/..."
+id for Claude or a "meta-llama/..." id for Llama). The key is read from
+OPENROUTER_API_KEY if set, otherwise asked for with hidden input and kept in
+memory for this run only.
 """
 import argparse
 
-from llm_client import PROVIDERS, ask
+from llm_client import DEFAULT_MODEL, ask
 
 parser = argparse.ArgumentParser()
 parser.add_argument("prompt", nargs="*", default=["In two sentences, what is attention in a transformer?"])
-parser.add_argument("--provider", choices=PROVIDERS, default="openrouter")
-parser.add_argument("--model", help="model id as the provider lists it; defaults per provider")
+parser.add_argument("--model", default=DEFAULT_MODEL, help="OpenRouter model id")
 args = parser.parse_args()
 
-print(ask(" ".join(args.prompt), provider=args.provider, model=args.model))
+print(ask(" ".join(args.prompt), model=args.model))

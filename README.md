@@ -31,14 +31,14 @@ Nothing needs to be installed locally.
 
 - **GPU notebooks (Google Colab or Kaggle):** in Colab choose File › Open notebook › GitHub, paste this repo's URL, then Runtime › Change runtime type › GPU. Start with `notebooks/00_environment_check.ipynb`.
 - **App code and scripts (GitHub Codespaces):** Code › Codespaces › Create codespace on main. The dev container installs everything in `requirements.txt` (CPU PyTorch included). Stop the codespace when you finish to save free hours.
-- **Model providers:** `scripts/llm_client.py` calls OpenRouter (default), Together or Anthropic with the same `ask()` function.
-- **API keys:** the notebook and scripts ask for your key when they run (hidden input) and keep it in memory for that session only. Nothing is stored in GitHub, Colab or Codespaces. Use a dedicated key with a low monthly spend limit, and never commit keys (`.env` is git-ignored).
+- **Models:** everything goes through [OpenRouter](https://openrouter.ai/models) with one key. `scripts/llm_client.py` has an `ask()` helper; pick any model by its OpenRouter id.
+- **API keys:** the notebook and scripts ask for your OpenRouter key when they run (hidden input) and keep it in memory for that session only. Nothing is stored in GitHub, Colab or Codespaces. Use a dedicated key with a low monthly spend limit, and never commit keys (`.env` is git-ignored).
 
 Quick check in a codespace:
 
 ```bash
-python scripts/hello_llm.py "Explain the KV cache in two sentences."                       # OpenRouter
-python scripts/hello_llm.py --provider together "Explain the KV cache in two sentences."
+python scripts/hello_llm.py "Explain the KV cache in two sentences."
+python scripts/hello_llm.py --model <openrouter-model-id> "Explain the KV cache in two sentences."
 ```
 
 ## Projects
