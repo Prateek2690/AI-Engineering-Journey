@@ -31,7 +31,7 @@ Nothing needs to be installed locally.
 
 - **GPU notebooks (Google Colab or Kaggle):** in Colab choose File › Open notebook › GitHub, paste this repo's URL, then Runtime › Change runtime type › GPU. Start with `notebooks/00_environment_check.ipynb`.
 - **App code and scripts (GitHub Codespaces):** Code › Codespaces › Create codespace on main. The dev container installs everything in `requirements.txt` (CPU PyTorch included). Stop the codespace when you finish to save free hours.
-- **API keys:** add `ANTHROPIC_API_KEY` (and `OPENAI_API_KEY` if you use it) as Codespaces secrets (Settings › Codespaces › Secrets) and as Colab secrets (the key icon in the left bar). Never commit keys; `.env` is git-ignored.
+- **API keys:** the notebook and scripts ask for your key when they run (hidden input) and keep it in memory for that session only. Nothing is stored in GitHub, Colab or Codespaces. Use a dedicated key with a low monthly spend limit, and never commit keys (`.env` is git-ignored).
 
 Quick check in a codespace:
 
