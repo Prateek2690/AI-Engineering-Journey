@@ -1,0 +1,9 @@
+# CPU build of PyTorch for Codespaces; Colab and Kaggle already ship a GPU build.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+numpy
+pandas
+matplotlib
+jupyter
+anthropic
+python-dotenv
