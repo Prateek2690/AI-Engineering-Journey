@@ -1,27 +1,21 @@
-"""Send one prompt to Claude and print the reply.
+"""Send one prompt to an LLM and print the reply.
 
-Usage: python scripts/hello_llm.py "your prompt"
-Uses ANTHROPIC_API_KEY if it is set; otherwise asks for the key (hidden input)
-and keeps it in memory for this run only, so it is never written to disk.
+Usage:
+  python scripts/hello_llm.py "your prompt"                      # OpenRouter, default model
+  python scripts/hello_llm.py --provider together "your prompt"
+  python scripts/hello_llm.py --provider anthropic --model claude-opus-5-5 "your prompt"
+
+The key is read from the provider's environment variable if set, otherwise asked
+for with hidden input and kept in memory for this run only.
 """
-import getpass
-import os
-import sys
+import argparse
 
-import anthropic
+from llm_client import PROVIDERS, ask
 
-prompt = " ".join(sys.argv[1:]) or "In two sentences, what is attention in a transformer?"
+parser = argparse.ArgumentParser()
+parser.add_argument("prompt", nargs="*", default=["In two sentences, what is attention in a transformer?"])
+parser.add_argument("--provider", choices=PROVIDERS, default="openrouter")
+parser.add_argument("--model", help="model id as the provider lists it; defaults per provider")
+args = parser.parse_args()
 
-api_key = os.environ.get("ANTHROPIC_API_KEY") or getpass.getpass("Anthropic API key (hidden): ")
-client = anthropic.Anthropic(api_key=api_key)
-response = client.messages.create(
-    model="claude-opus-5-5",
-    max_tokens=1024,
-    messages=[{"role": "user", "content": prompt}],
-)
-
-if response.stop_reason == "refusal":
-    print("The model declined this request.")
-else:
-    print("".join(block.text for block in response.content if block.type == "text"))
-    print(f"\n[{response.usage.input_tokens} input / {response.usage.output_tokens} output tokens]")
+print(ask(" ".join(args.prompt), provider=args.provider, model=args.model))
